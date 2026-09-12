@@ -23,12 +23,13 @@ its folder.
 
 ## Setup
 
-One command, on any machine — new or already set up — clones this repo (or
-updates it if it's already there), clones `study-reminder`, starts it, and
+One command, on any machine — new or already set up — fetches this repo
+(stripping `.git/` and `README.md`, same as it does to `study-reminder`
+itself, so it doesn't waste space), clones `study-reminder`, starts it, and
 installs the watchdog timer so it survives reboots:
 
 ```sh
-d=~/Codes/study-reminder-deploy; (git -C "$d" pull -q 2>/dev/null || git clone -q https://github.com/nimapdevyash/memories-blogs.git "$d") && "$d/deploy.sh" install
+t=$(mktemp -d) && git clone -q https://github.com/nimapdevyash/memories-blogs.git "$t" && rm -rf "$t/.git" "$t/README.md" && mkdir -p ~/Codes/study-reminder-deploy && cp -a "$t/." ~/Codes/study-reminder-deploy/ && rm -rf "$t" && ~/Codes/study-reminder-deploy/deploy.sh install
 ```
 
 ## Stopping the actual reminder
