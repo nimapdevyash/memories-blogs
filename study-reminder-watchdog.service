@@ -1,0 +1,6 @@
+[Unit]
+Description=study-reminder watchdog (redeploys/restarts if missing or stopped)
+
+[Service]
+Type=oneshot
+ExecStart=__DEPLOY__ check
